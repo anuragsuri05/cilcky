@@ -1,0 +1,23 @@
+name = "amazze-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# API keys are secrets — set any of them (one is enough):
+#   npx wrangler secret put ANTHROPIC_API_KEY    # Claude (same brain as Clicky)
+#   npx wrangler secret put OPENAI_API_KEY       # ChatGPT models + voice + speech-to-text
+#   npx wrangler secret put GEMINI_API_KEY       # Google Gemini
+#   npx wrangler secret put OPENROUTER_API_KEY   # any model via OpenRouter
+#   npx wrangler secret put GROQ_API_KEY         # fast/free tier + voice + speech-to-text
+# For local `wrangler dev`, put the same KEY=value lines in worker/.dev.vars.
+[vars]
+# Brain: "auto" uses the first key found in this order: anthropic, openai,
+# gemini, openrouter, groq. Or force one of those names.
+CHAT_PROVIDER = "auto"
+# Empty = provider default (claude-opus-5-5, gpt-6.1-sol, gemini-3.8-flash,
+# anthropic/claude-opus-5.5, qwen/qwen3.8-27b).
+CHAT_MODEL = ""
+# Voice + speech-to-text: "auto" = groq, then openai. With neither key the app
+# uses the Mac's on-device speech recognition and system voice.
+SPEECH_PROVIDER = "auto"
+# Empty = provider default voice (groq: austin, openai: marin)
+VOICE = ""
